@@ -39,6 +39,32 @@ createPlaylist = (req, res) => {
             })
         })
 }
+
+createNewList = async (req, res) => {
+    const body = req.body;
+    const playlist = new Playlist(body);
+    console.log("playlist: " + JSON.stringify(body));
+    if (!playlist) {
+        return res.status(400).json({ success: false, error: err })
+    }
+
+    playlist
+        .save()
+        .then(() => {
+            return res.status(201).json({
+                success: true,
+                playlist: playlist,
+                message: 'Playlist Created!',
+            })
+        })
+        .catch(error => {
+            return res.status(400).json({
+                error,
+                message: 'Playlist Not Created!',
+            })
+        })
+}
+
 getPlaylistById = async (req, res) => {
     await Playlist.findOne({ _id: req.params.id }, (err, list) => {
         if (err) {

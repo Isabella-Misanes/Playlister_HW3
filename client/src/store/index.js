@@ -116,7 +116,7 @@ export const useGlobalStore = () => {
         async function asyncChangeListName(id) {
             let response = await api.getPlaylistById(id);
             if (response.data.success) {
-                let playlist = response.data.playist;
+                let playlist = response.data.playlist;
                 playlist.name = newName;
                 async function updateList(playlist) {
                     response = await api.updatePlaylistById(playlist._id, playlist);
@@ -141,6 +141,22 @@ export const useGlobalStore = () => {
             }
         }
         asyncChangeListName(id);
+    }
+
+    // Creates a new empty playlist
+    store.createNewList = function () {
+        async function asyncCreateNewList() {
+            let r = await api.getAllPlaylists();
+            if(r.data.success) {
+                let count = r.data.data.length+1;
+                let response = await api.createNewList({name: "Untitled " + count, songs: []});
+                if (response.data.success) {
+                    let playlistId = response.data.playlist._id;
+                    store.setCurrentList(playlistId);
+                }
+            }
+        }
+        asyncCreateNewList();
     }
 
     // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
