@@ -6,11 +6,58 @@ function SongCard(props) {
 
     const { song, index } = props;
     let cardClass = "list-card unselected-list-card";
+    //const [start, setStart] = useState(index);
+    
+    function handleDragStart(event) {
+        //event.stopPropagation();
+        event.dataTransfer.setData("song", event.target.id);
+    }
+    function handleDragOver(event) {
+        event.preventDefault();
+        //event.stopPropagation();
+    }
+    function handleDragEnter(event) {
+        event.preventDefault();
+        //event.stopPropagation();
+    }
+    function handleDragLeave(event) {
+        event.preventDefault();
+        //event.stopPropagation();
+    }
+    function handleSongEdit(event) {
+        //event.stopPropagation();
+    }
+    function handleDrop(event) {
+        event.preventDefault();
+        let target = event.target;
+        let targetId = target.id;
+        targetId = targetId.substring(target.id.indexOf("-") + 1);
+        targetId = targetId.substring(0, targetId.indexOf("-"));
+        targetId = parseInt(targetId);
+
+        let sourceId = event.dataTransfer.getData("song");
+        sourceId = sourceId.substring(sourceId.indexOf("-") + 1);
+        sourceId = sourceId.substring(0, sourceId.indexOf("-"));
+        sourceId = parseInt(sourceId);
+
+        if(targetId !== "") {
+            // ASK THE MODEL TO MOVE THE DATA
+            store.moveSong(sourceId, targetId);
+        }
+    }
+
     return (
         <div
             key={index}
             id={'song-' + index + '-card'}
             className={cardClass}
+            onDragStart={handleDragStart}
+            onDragOver={handleDragOver}
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            onDoubleClick={handleSongEdit}
+            onDrop={handleDrop}
+            draggable="true"
         >
             {index + 1}.
             <a
