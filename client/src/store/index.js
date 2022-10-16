@@ -48,7 +48,7 @@ export const useGlobalStore = () => {
             case GlobalStoreActionType.CHANGE_LIST_NAME: {
                 return setStore({
                     idNamePairs: payload.idNamePairs,
-                    currentList: payload.playlist,
+                    currentList: null,
                     newListCounter: store.newListCounter,
                     listNameActive: false,
                     deleteListModalOpen: false,
@@ -212,6 +212,28 @@ export const useGlobalStore = () => {
 
     store.deleteList = function () {
         console.log("Confirmed. In DELETE list");
+    }
+
+    //Adds song to the end of the playlist
+    store.addSong = function() {
+        async function asyncAddSong() {
+            let list = store.currentList;
+            let index = list.songs.length;
+            let song = {
+                title: "Untitled",
+                artist: "Unknown",
+                youTubeId: "dQw4w9WgXcQ"
+            }
+            list.songs[index] = song;
+            let response = await api.updatePlaylist(list._id, list);
+            if(response.data.success) {
+                storeReducer({
+                    type: GlobalStoreActionType.SET_CURRENT_LIST,
+                    payload: list
+                });
+            }
+        }
+        asyncAddSong();
     }
 
     //Moves song and shifts down all other songs
