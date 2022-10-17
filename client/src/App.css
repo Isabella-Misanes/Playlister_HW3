@@ -263,7 +263,30 @@ span {
 }
 
 
+#edit-song-modal-title-textfield {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
 
+#artist-prompt {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+}
+
+#edit-song-modal-artist-textfield {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+#you-tube-id-prompt {
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+}
+
+#edit-song-modal-youTubeId-textfield {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+}
 
 
 

@@ -7,7 +7,6 @@ function DeleteSongModal() {
     if(store.songToDelete){
         title = store.songToDelete.songToDelete.song.title;
     }
-
     return (
         <div 
             className="modal" 
@@ -38,5 +37,4 @@ function DeleteSongModal() {
         </div>
     );
 }
-
 export default DeleteSongModal;

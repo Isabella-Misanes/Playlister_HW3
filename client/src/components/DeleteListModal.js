@@ -3,7 +3,11 @@ import { GlobalStoreContext } from '../store'
 
 function DeleteListModal() {
     const { store } = useContext(GlobalStoreContext);
-    //const name = store.listMarkedForDeletion.name;
+    let name = "";
+    if(store.listMarkedForDeletion) {
+        name = store.listMarkedForDeletion.name;
+    }
+    
     return (
         <div 
             className="modal" 
@@ -15,7 +19,7 @@ function DeleteListModal() {
                     </div>
                     <div className="modal-center">
                         <div className="modal-center-content">
-                            Are you sure you wish to permanently delete the  playlist?
+                            Are you sure you wish to permanently delete the {name} playlist?
                         </div>
                     </div>
                     <div className="modal-south">

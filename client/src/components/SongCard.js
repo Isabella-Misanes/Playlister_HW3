@@ -43,12 +43,11 @@ function SongCard(props) {
         }
     }
     function handleSongEdit(event) {
-        //event.stopPropagation();
+        event.stopPropagation();
+        store.markSongForEdit(props);
     }
     function handleDeleteSong(event) {
-        //event.stopPropagation();
-        console.log("In handleDeleteSong");
-        console.log(props);
+        event.stopPropagation();
         store.markSongForDeletion(props);
     }
 
