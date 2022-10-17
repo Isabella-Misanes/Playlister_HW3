@@ -41,15 +41,10 @@ function ListCard(props) {
 
     function handleDeleteList(event) {
         event.stopPropagation();
-        toggleDelete();
-    }
-
-    function toggleDelete() {
         let newActive = !editActive;
         if (newActive) {
-            store.markDeleteList();
+            store.markDeleteList(idNamePair);
         }
-        //setEditActive(newActive);
     }
 
     function handleKeyPress(event) {

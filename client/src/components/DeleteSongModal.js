@@ -1,33 +1,37 @@
 import { useContext } from 'react'
 import { GlobalStoreContext } from '../store'
 
-function DeleteListModal() {
+function DeleteSongModal() {
     const { store } = useContext(GlobalStoreContext);
-    //const name = store.listMarkedForDeletion.name;
+    let title = "";
+    if(store.songToDelete){
+        title = store.songToDelete.songToDelete.song.title;
+    }
+
     return (
         <div 
             className="modal" 
-            id="delete-list-modal" 
+            id="delete-song-modal" 
             data-animation="slideInOutLeft">
-                <div className="modal-root" id='verify-delete-list-root'>
+                <div className="modal-root" id='verify-delete-song-root'>
                     <div className="modal-north">
-                        Delete playlist?
+                        Delete song?
                     </div>
                     <div className="modal-center">
                         <div className="modal-center-content">
-                            Are you sure you wish to permanently delete the  playlist?
+                            Are you sure you wish to remove <strong>{title}</strong> from the playlist?
                         </div>
                     </div>
                     <div className="modal-south">
                         <input type="button" 
-                            id="delete-list-confirm-button" 
+                            id="delete-song-confirm-button" 
                             className="modal-button" 
-                            onClick={store.deleteList}
+                            onClick={store.deleteSong}
                             value='Confirm' />
                         <input type="button" 
-                            id="delete-list-cancel-button" 
+                            id="delete-song-cancel-button" 
                             className="modal-button" 
-                            onClick={store.hideDeleteListModal}
+                            onClick={store.hideDeleteSongModal}
                             value='Cancel' />
                     </div>
                 </div>
@@ -35,4 +39,4 @@ function DeleteListModal() {
     );
 }
 
-export default DeleteListModal;
+export default DeleteSongModal;

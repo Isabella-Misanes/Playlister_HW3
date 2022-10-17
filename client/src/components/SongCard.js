@@ -24,9 +24,6 @@ function SongCard(props) {
         event.preventDefault();
         //event.stopPropagation();
     }
-    function handleSongEdit(event) {
-        //event.stopPropagation();
-    }
     function handleDrop(event) {
         event.preventDefault();
         let target = event.target;
@@ -44,6 +41,15 @@ function SongCard(props) {
             // ASK THE MODEL TO MOVE THE DATA
             store.moveSong(sourceId, targetId);
         }
+    }
+    function handleSongEdit(event) {
+        //event.stopPropagation();
+    }
+    function handleDeleteSong(event) {
+        //event.stopPropagation();
+        console.log("In handleDeleteSong");
+        console.log(props);
+        store.markSongForDeletion(props);
     }
 
     return (
@@ -71,6 +77,7 @@ function SongCard(props) {
                 id={"remove-song-" + index}
                 className="list-card-button"
                 value={"\u2715"}
+                onClick={handleDeleteSong}
             />
         </div>
     );
