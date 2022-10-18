@@ -1,5 +1,7 @@
 import { createContext, useState } from 'react'
 import jsTPS from '../common/jsTPS'
+import AddSong_Transaction from '../transaction/AddSong_Transaction';
+import DeleteSong_Transaction from '../transaction/DeleteSong_Transaction';
 import api from '../api'
 export const GlobalStoreContext = createContext({});
 /*
@@ -270,10 +272,13 @@ export const useGlobalStore = () => {
         asyncMarkDeleteSong();
         store.showDeleteSongModal();
     }
-    store.deleteSong = function () {
+    store.deleteSongTransaction = function () {
+        let transaction = new DeleteSong_Transaction(store, store.songToDelete.songToDelete.index, store.songToDelete.songToDelete.song);
+        tps.addTransaction(transaction);
+    }
+    store.deleteSong = function (index) {
         async function asyncDeleteSong() {
             let list = store.currentList;
-            let index = store.songToDelete.songToDelete.index;
             list.songs.splice(index, 1);
             let response = await api.updatePlaylist(list._id, list);
             if(response.data.success) {
@@ -340,16 +345,10 @@ export const useGlobalStore = () => {
 
 
     //Adds song to the end of the playlist
-    store.addSong = function() {
+    store.addSong = function(index, song) {
         async function asyncAddSong() {
             let list = store.currentList;
-            let index = list.songs.length;
-            let song = {
-                title: "Untitled",
-                artist: "Unknown",
-                youTubeId: "dQw4w9WgXcQ"
-            }
-            list.songs[index] = song;
+            list.songs.splice(index, 0, song);
             let response = await api.updatePlaylist(list._id, list);
             if(response.data.success) {
                 storeReducer({
@@ -359,6 +358,10 @@ export const useGlobalStore = () => {
             }
         }
         asyncAddSong();
+    }
+    store.addSongTransaction = function() {
+        let transaction = new AddSong_Transaction(store, store.currentList.songs.length);
+        tps.addTransaction(transaction);
     }
 
     //Moves song and shifts down all other songs
@@ -394,6 +397,7 @@ export const useGlobalStore = () => {
 
     // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
     store.closeCurrentList = function () {
+        tps.clearAllTransactions();
         storeReducer({
             type: GlobalStoreActionType.CLOSE_CURRENT_LIST,
             payload: {}
