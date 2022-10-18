@@ -5,11 +5,11 @@ function EditSongModal() {
     const { store } = useContext(GlobalStoreContext);
     if(store.songToEdit) {
         let editSongTitle = document.getElementById("song-title");
-        editSongTitle.value = store.songToEdit.songToEdit.song.title;
+        editSongTitle.value = store.songToEdit.song.title;
         let editSongArtist = document.getElementById("song-artist");
-        editSongArtist.value = store.songToEdit.songToEdit.song.artist;
+        editSongArtist.value = store.songToEdit.song.artist;
         let editSongId = document.getElementById("song-youTubeId");
-        editSongId.value = store.songToEdit.songToEdit.song.youTubeId;
+        editSongId.value = store.songToEdit.song.youTubeId;
     }
     return (
         <div 

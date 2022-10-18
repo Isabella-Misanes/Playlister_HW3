@@ -13,7 +13,10 @@ function PlaylistCards() {
     store.history = useHistory();
 
     return (
-        <div id="playlist-cards">
+        <div 
+            id="playlist-cards"
+            onKeyDown={store.undoRedoHandling}
+            tabIndex="1">
         {
             store.currentList.songs.map((song, index) => (
                 <SongCard

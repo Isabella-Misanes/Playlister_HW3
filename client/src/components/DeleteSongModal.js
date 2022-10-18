@@ -5,7 +5,7 @@ function DeleteSongModal() {
     const { store } = useContext(GlobalStoreContext);
     let title = "";
     if(store.songToDelete){
-        title = store.songToDelete.songToDelete.song.title;
+        title = store.songToDelete.song.title;
     }
     return (
         <div 

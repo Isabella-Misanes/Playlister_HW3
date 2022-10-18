@@ -164,7 +164,9 @@ input {
 }
 
 .disabled {
-  background-color: lightgray;
+  background-color: rgb(182, 182, 182);
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .disabled:hover {

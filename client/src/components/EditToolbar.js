@@ -11,7 +11,17 @@ function EditToolbar() {
     const { store } = useContext(GlobalStoreContext);
     const history = useHistory();
 
-    let enabledButtonClass = "playlister-button";
+    let canAddSong = store.currentList !== null;
+    let canClose = store.currentList !== null;
+
+    let addButtonClass = "playlister-button";
+    let undoButtonClass = "playlister-button";
+    let redoButtonClass = "playlister-button";
+    let closeButtonClass = "playlister-button";
+    if (!canAddSong) addButtonClass += " disabled";
+    if (!store.canUndo) undoButtonClass += " disabled";
+    if (!store.canRedo) redoButtonClass += " disabled";
+    if (!canClose) closeButtonClass += " disabled";
 
     function handleUndo() {
         store.undo();
@@ -34,7 +44,7 @@ function EditToolbar() {
                 id='add-song-button'
                 disabled={editStatus}
                 value="+"
-                className={enabledButtonClass}
+                className={addButtonClass}
                 onClick={store.addSongTransaction}
             />
             <input
@@ -42,7 +52,7 @@ function EditToolbar() {
                 id='undo-button'
                 disabled={editStatus}
                 value="⟲"
-                className={enabledButtonClass}
+                className={undoButtonClass}
                 onClick={handleUndo}
             />
             <input
@@ -50,7 +60,7 @@ function EditToolbar() {
                 id='redo-button'
                 disabled={editStatus}
                 value="⟳"
-                className={enabledButtonClass}
+                className={redoButtonClass}
                 onClick={handleRedo}
             />
             <input
@@ -58,7 +68,7 @@ function EditToolbar() {
                 id='close-button'
                 disabled={editStatus}
                 value="&#x2715;"
-                className={enabledButtonClass}
+                className={closeButtonClass}
                 onClick={handleClose}
             />
         </span>);
