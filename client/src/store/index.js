@@ -2,6 +2,7 @@ import { createContext, useState } from 'react'
 import jsTPS from '../common/jsTPS'
 import AddSong_Transaction from '../transaction/AddSong_Transaction';
 import DeleteSong_Transaction from '../transaction/DeleteSong_Transaction';
+import EditSong_Transaction from '../transaction/EditSong_Transaction';
 import api from '../api'
 export const GlobalStoreContext = createContext({});
 /*
@@ -313,16 +314,20 @@ export const useGlobalStore = () => {
         asyncMarkEditSong();
         store.showEditSongModal();
     }
-    store.editSong = function () {
+    store.editSongTransaction = function() {
+        let newSong = {
+            title: document.getElementById("song-title").value,
+            artist: document.getElementById("song-artist").value,
+            youTubeId: document.getElementById("song-youTubeId").value
+        };
+        let oldSong = store.songToEdit.songToEdit.song;
+        let transaction = new EditSong_Transaction(store, store.songToEdit.songToEdit.index, oldSong, newSong);
+        tps.addTransaction(transaction);
+    }
+    store.editSong = function (index, song) {
         async function asyncEditSong() {
-            let newSong = {
-                title: document.getElementById("song-title").value,
-                artist: document.getElementById("song-artist").value,
-                youTubeId: document.getElementById("song-youTubeId").value
-            };
             let list = store.currentList;
-            let index = store.songToEdit.songToEdit.index;
-            list.songs[index] = newSong;
+            list.songs[index] = song;
             let response = await api.updatePlaylist(list._id, list);
             if(response.data.success) {
                 storeReducer({
