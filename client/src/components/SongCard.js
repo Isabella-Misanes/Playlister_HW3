@@ -39,7 +39,7 @@ function SongCard(props) {
 
         if(targetId !== "") {
             // ASK THE MODEL TO MOVE THE DATA
-            store.moveSong(sourceId, targetId);
+            store.moveSongTransaction(sourceId, targetId);
         }
     }
     function handleSongEdit(event) {

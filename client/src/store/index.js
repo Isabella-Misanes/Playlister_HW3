@@ -3,6 +3,7 @@ import jsTPS from '../common/jsTPS'
 import AddSong_Transaction from '../transaction/AddSong_Transaction';
 import DeleteSong_Transaction from '../transaction/DeleteSong_Transaction';
 import EditSong_Transaction from '../transaction/EditSong_Transaction';
+import MoveSong_Transaction from '../transaction/MoveSong_Transaction';
 import api from '../api'
 export const GlobalStoreContext = createContext({});
 /*
@@ -370,6 +371,10 @@ export const useGlobalStore = () => {
     }
 
     //Moves song and shifts down all other songs
+    store.moveSongTransaction = function(oldIndex, newIndex) {
+        let transaction = new MoveSong_Transaction(store, oldIndex, newIndex);
+        tps.addTransaction(transaction);
+    }
     store.moveSong = function (start, end) {
         async function asyncMoveSong(){    
             let list = store.currentList;
