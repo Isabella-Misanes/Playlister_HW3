@@ -63,6 +63,8 @@ function SongCard(props) {
             onDoubleClick={handleSongEdit}
             onDrop={handleDrop}
             draggable="true"
+            onKeyDown={store.undoRedoHandling}
+            tabIndex="1"
         >
             {index + 1}.
             <a

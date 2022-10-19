@@ -11,7 +11,10 @@ function Statusbar() {
     if (store.currentList)
         text = store.currentList.name;
     return (
-        <div id="playlister-statusbar">
+        <div 
+            id="playlister-statusbar"
+            onKeyDown={store.undoRedoHandling}
+            tabIndex="1">
             {text}
         </div>
     );

@@ -23,6 +23,13 @@ function EditToolbar() {
     if (!store.canRedo) redoButtonClass += " disabled";
     if (!canClose) closeButtonClass += " disabled";
 
+    if(store.isModalOpen) {
+        addButtonClass += " disabled";
+        undoButtonClass += " disabled";
+        redoButtonClass += " disabled";
+        closeButtonClass += " disabled";
+    }
+
     function handleUndo() {
         store.undo();
     }
@@ -38,7 +45,10 @@ function EditToolbar() {
         editStatus = true;
     }
     return (
-        <span id="edit-toolbar">
+        <span 
+            id="edit-toolbar"
+            onKeyDown={store.undoRedoHandling}
+            tabIndex="1">
             <input
                 type="button"
                 id='add-song-button'

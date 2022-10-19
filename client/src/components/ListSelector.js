@@ -11,6 +11,11 @@ const ListSelector = () => {
     const { store } = useContext(GlobalStoreContext);
     store.history = useHistory();
 
+    let addListClass = "playlister-button";
+    if(store.isModalOpen) {
+        addListClass += " disabled";
+    }
+
     useEffect(() => {
         store.loadIdNamePairs();
     }, []);
@@ -36,7 +41,7 @@ const ListSelector = () => {
                     type="button"
                     id="add-list-button"
                     onClick={handleCreateNewList}
-                    className="playlister-button"
+                    className={addListClass}
                     value="+" />
                 Your Playlists
             </div>                {

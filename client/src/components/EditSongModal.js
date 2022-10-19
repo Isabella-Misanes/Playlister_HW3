@@ -15,7 +15,9 @@ function EditSongModal() {
         <div 
             className="modal" 
             id="edit-song-modal" 
-            data-animation="slideInOutLeft">
+            data-animation="slideInOutLeft"
+            onKeyDown={store.undoRedoHandling}
+            tabIndex="1">
                 <div className="modal-root" id='verify-edit-song-root'>
                     <div className="modal-north">
                         Edit Song

@@ -66,6 +66,14 @@ function ListCard(props) {
     if (store.isListNameEditActive) {
         cardStatus = true;
     }
+
+    let editListClass = "list-card-button";
+    let deleteListClass = "list-card-button";
+    if(store.isModalOpen) {
+        editListClass += " disabled";
+        deleteListClass += " disabled";
+    }
+
     let cardElement =
         <div
             id={idNamePair._id}
@@ -83,14 +91,14 @@ function ListCard(props) {
                 type="button"
                 id={"delete-list-" + idNamePair._id}
                 onClick={handleDeleteList}
-                className="list-card-button"
+                className={deleteListClass}
                 value={"\u2715"}
             />
             <input
                 disabled={cardStatus}
                 type="button"
                 id={"edit-list-" + idNamePair._id}
-                className="list-card-button"
+                className={editListClass}
                 onClick={handleToggleEdit}
                 value={"\u270E"}
             />

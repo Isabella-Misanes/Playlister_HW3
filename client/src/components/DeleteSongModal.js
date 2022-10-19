@@ -11,7 +11,9 @@ function DeleteSongModal() {
         <div 
             className="modal" 
             id="delete-song-modal" 
-            data-animation="slideInOutLeft">
+            data-animation="slideInOutLeft"
+            onKeyDown={store.undoRedoHandling}
+            tabIndex="1">
                 <div className="modal-root" id='verify-delete-song-root'>
                     <div className="modal-north">
                         Delete song?
